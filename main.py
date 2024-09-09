@@ -1,6 +1,6 @@
-from Website import create_LCapp
+from Website import create_App
 
-LCapp = create_LCapp()
+App = create_App()
 
 if __name__ == '__main__':
-    LCapp.run(debug=True)
+    App.run(debug=True)
