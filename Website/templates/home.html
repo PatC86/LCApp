@@ -2,11 +2,6 @@
 {% block title %}Lifting Chain App Home Page{% endblock %}
 {% block content %} <br><br><h1>&emsp; Welcome to the Southern Water Lifting Chain Application</h1>
 <br>
-<ul class="list-group list-group-flush" id="liftingchains">
-    {% for lifting_chains in user.lifting_chains %}
-    <li class="list-group-item">{{ lifting_chains.data }}</li>
-    {% endfor %}
-</ul>
 <form method="POST">
     <h3 align="center">Add Lifting Chain Information!</h3>
     <div class="form-group">
