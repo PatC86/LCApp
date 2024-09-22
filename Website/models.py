@@ -19,7 +19,8 @@ class LiftingChain(db.Model):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     email = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(50), nullable=False)
     firstname = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(150), nullable=False)
+    role = db.Column(db.String(10))
+    password = db.Column(db.String(50), nullable=False)
     lifting_chains = db.relationship('LiftingChain')

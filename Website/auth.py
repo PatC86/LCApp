@@ -2,10 +2,9 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, logout_user, login_required, user_logged_out, current_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 auth = Blueprint('auth', __name__)
-
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,6 +24,7 @@ def login():
             flash('Email not registered', category='error')
 
     return render_template('login.html', user=current_user)
+
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -49,7 +49,7 @@ def signup():
         elif len(Password1) < 9:
             flash('Password must be at least 8 Characters', category='error')
         else:
-            new_user = User(email=Email, firstname=FirstName, surname=Surname,
+            new_user = User(email=Email, firstname=FirstName, surname=Surname, role='standard',
                             password=generate_password_hash(Password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
@@ -59,8 +59,11 @@ def signup():
 
     return render_template('signup.html', user=current_user)
 
+
 @auth.route('/logoff')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+

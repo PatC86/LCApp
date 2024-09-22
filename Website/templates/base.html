@@ -23,11 +23,13 @@
        </button>
        <div class="collapse navbar-collapse" id="navbar">
            <div class="navbar-nav">
-               {% if user.is_authenticated %}
-               <a class="nav-item nav-link" id="logoff" href="/logoff">Logoff</a>
-               <a class="nav-item nav-link" id="home" href="/">Home</a>
+               {% if user.is_authenticated and user.role.upper() == 'ADMIN' %}
                <a class="nav-item nav-link" id="adminchains" href="/adminchains">Lifting Chain Admin</a>
                <a class="nav-item nav-link" id="adminusers" href="/adminusers">User Admin</a>
+               {% endif %}
+               {% if user.is_authenticated %}
+               <a class="nav-item nav-link" id="home" href="/">Home</a>
+               <a class="nav-item nav-link" id="logoff" href="/logoff">Logoff</a>
                {% else %}
                <a class="nav-item nav-link" id="login" href="/login">Login</a>
                <a class="nav-item nav-link" id="signup" href="/signup">Sign Up</a>

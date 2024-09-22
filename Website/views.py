@@ -3,6 +3,7 @@ from .models import User
 from .models import LiftingChain
 from flask import Blueprint, render_template, request, flash
 from flask_login import login_required, current_user
+from .admin import admin_required
 
 views = Blueprint('views', __name__)
 
@@ -35,12 +36,14 @@ def home():
 
 @views.route('/adminchains', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def liftingchainadmin():
     liftingchain_list = LiftingChain.query.all()
     return render_template('adminchains.html', user=current_user, liftingchain_list=liftingchain_list)
 
 @views.route('/adminusers', methods=['GET', 'POST'])
 @login_required
+@admin_required
 def useradmin():
     user_list = User.query.all()
     return render_template('adminusers.html', user=current_user, user_list=user_list)
