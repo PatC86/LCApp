@@ -15,7 +15,6 @@ def create_App():
     App.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_name}'
     db.init_app(App)
 
-
     from .views import views
     from .auth import auth
 
@@ -37,6 +36,3 @@ def create_App():
         return User.query.get(int(id))
 
     return App
-
-
-

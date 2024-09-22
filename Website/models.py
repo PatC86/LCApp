@@ -6,13 +6,7 @@ from sqlalchemy.sql import func
 class LiftingChain(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     equip_no = db.Column(db.String(12))
-    equip_desc = db.Column(db.String(50), nullable=False)
-    location_on_site = db.Column(db.String(50))
-    SWL = db.Column(db.Float)
-    date_installed = db.Column(db.DateTime(timezone=True))
     chain_length = db.Column(db.Float)
-    site_no = db.Column(db.String(12), nullable=False)
-    site_desc = db.Column(db.String(50), nullable=False)
     chain_condition = db.Column(db.Integer)
     mean_measured_pitch_length = db.Column(db.Integer)
     pitches_measured = db.Column(db.Integer)

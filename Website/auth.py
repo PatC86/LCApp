@@ -6,6 +6,7 @@ from flask_login import login_user, logout_user, login_required, user_logged_out
 
 auth = Blueprint('auth', __name__)
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -23,13 +24,7 @@ def login():
         else:
             flash('Email not registered', category='error')
 
-    return render_template('login.html', boolean = True)
-
-@auth.route('/logoff')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('auth.login'))
+    return render_template('login.html', user=current_user)
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -54,10 +49,21 @@ def signup():
         elif len(Password1) < 9:
             flash('Password must be at least 8 Characters', category='error')
         else:
-            new_user = User(email=Email, firstname=FirstName, surname=Surname, password=generate_password_hash(Password1, method='pbkdf2:sha256'))
+            new_user = User(email=Email, firstname=FirstName, surname=Surname,
+                            password=generate_password_hash(Password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(user, remember=True)
+            login_user(new_user, remember=True)
             flash('Account Created Successfully :D', category='success')
             return redirect(url_for('views.home'))
-    return render_template('signup.html')
+
+    return render_template('signup.html', user=current_user)
+
+@auth.route('/logoff')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
+
+
+
