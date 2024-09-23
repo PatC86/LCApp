@@ -15,6 +15,7 @@
         <th>Inspection Date</th>
         <th>Passed</th>
         <th>User</th>
+        <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +31,11 @@
         <td> {{ liftingchain.chain_inspection_date }} </td>
         <td> {{ liftingchain.chain_passed }} </td>
         <td> {{ liftingchain.user_id }} </td>
+        <td>
+        <form action="{{ url_for('views.delete_chain', id=liftingchain.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this inspection record?');">
+          <button type="submit">Remove Inspection Record</button>
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </tbody>

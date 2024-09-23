@@ -1,7 +1,7 @@
 from . import db
 from .models import User
 from .models import LiftingChain
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .liftingchainhealthscore import *
 from .admin import admin_required
@@ -45,9 +45,40 @@ def liftingchainadmin():
     liftingchain_list = LiftingChain.query.all()
     return render_template('adminchains.html', user=current_user, liftingchain_list=liftingchain_list)
 
+@views.route('/delete_chain/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def delete_chain(id):
+    liftingchain = LiftingChain.query.get(id)
+    if liftingchain:
+        db.session.delete(liftingchain)
+        db.session.commit()
+    return liftingchainadmin()
+
 @views.route('/adminusers', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def useradmin():
     user_list = User.query.all()
     return render_template('adminusers.html', user=current_user, user_list=user_list)
+
+@views.route('/delete_user/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def delete_user(id):
+    user = User.query.get(id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+    return useradmin()
+
+@views.route('/update_role/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def update_role(id):
+    new_role = request.form.get('role')
+    user = User.query.get(id)
+    if user:
+        user.role = new_role
+        db.session.commit()
+    return useradmin()
