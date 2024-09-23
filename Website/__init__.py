@@ -25,9 +25,9 @@ def create_App():
     from .models import LiftingChain, User
     #from werkzeug.security import generate_password_hash
 
-    with App.app_context():
-        db.create_all()
-        print('Database successfully created !!! :D')
+    #with App.app_context():
+        #db.create_all()
+        #print('Database successfully created !!! :D')
         #admin_user = User(email='admin@sw.co.uk', firstname='Admin', surname='Admin', role='admin',
         #              password=generate_password_hash('adminadmin', method='pbkdf2:sha256'))
         #db.session.add(admin_user)
