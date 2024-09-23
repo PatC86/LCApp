@@ -8,6 +8,7 @@ class LiftingChain(db.Model):
     equip_no = db.Column(db.String(12))
     chain_length = db.Column(db.Float)
     chain_condition = db.Column(db.Integer)
+    chain_pitch_length = db.Column(db.Integer)
     mean_measured_pitch_length = db.Column(db.Integer)
     pitches_measured = db.Column(db.Integer)
     chain_health_score = db.Column(db.Float)
