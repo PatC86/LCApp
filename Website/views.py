@@ -68,7 +68,7 @@ def home():
 @admin_required
 def liftingchainadmin():
     try:
-        liftingchain_list = LiftingChain.query.all()
+        liftingchain_list = db.session.query(LiftingChain, User).join(User, LiftingChain.user_id == User.id).all()
         return render_template('adminchains.html', user=current_user, liftingchain_list=liftingchain_list)
     except Exception as e:
         logging.error(f"Error fetching lifting chain data: {e}")
@@ -140,7 +140,9 @@ def update_role(id):
 @contracteng_required
 def liftingchainconteng():
     try:
-        liftingchain_list = LiftingChain.query.filter(LiftingChain.chain_health_score < 60).all()
+        liftingchain_list = db.session.query(LiftingChain, User).join(User, LiftingChain.user_id == User.id).filter(LiftingChain.chain_health_score < 60).all()
+        #db.session.query(LiftingChain, User).join(User, LiftingChain.user_id == User.id).filter(LiftingChain.chain_health_score < 60).all()
+        #LiftingChain.query.filter(LiftingChain.chain_health_score < 60).all()
         return render_template('contengchains.html', user=current_user, liftingchain_list=liftingchain_list)
     except Exception as e:
         logging.error(f"An Error occurred while trying to fetch the lifting chain data for Contract Engineer: {e}")
