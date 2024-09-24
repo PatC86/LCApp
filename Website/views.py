@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .liftingchainhealthscore import *
 from .admin import admin_required
+from .contracteng import contracteng_required
 
 views = Blueprint('views', __name__)
 
@@ -82,3 +83,10 @@ def update_role(id):
         user.role = new_role
         db.session.commit()
     return useradmin()
+
+@views.route('/contengchains', methods=['GET'])
+@login_required
+@contracteng_required
+def liftingchainconteng():
+    liftingchain_list = LiftingChain.query.filter(LiftingChain.chain_health_score < 60)
+    return render_template('contengchains.html', user=current_user, liftingchain_list=liftingchain_list)
