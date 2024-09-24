@@ -49,7 +49,6 @@ def liftingchainhealthscore(percent_wear, chain_condition):
 
 def chainpass(lifting_chain_health_score):
     """Show if lifting chain health score is pass"""
-
     try:
         if lifting_chain_health_score > PASS_SCORE:
             return True

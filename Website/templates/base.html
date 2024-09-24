@@ -48,7 +48,7 @@
                <a class="nav-item nav-link" id="adminusers" href="/adminusers">User Admin</a>
                {% endif %}
                {% if user.is_authenticated and user.role.upper() == 'CONTRACTENG' %}
-               <a class="nav-item nav-link" id="contractengchains" href="/contengchains">Lifting Chain Admin</a>
+               <a class="nav-item nav-link" id="contractengchains" href="/contengchains">Failed Lifting Chains</a>
                {% endif %}
                {% if user.is_authenticated %}
                <a class="nav-item nav-link" id="home" href="/">Home</a>
