@@ -36,7 +36,15 @@ def home():
             ChainHealthScore = liftingchainhealthscore(PercentWare, ChainCondition)
             ChainPassed = chainpass(ChainHealthScore)
 
-            if 1 > int(ChainCondition) > 5:
+            if not 8000 <= int(EquipNo) <= 999999999999:
+                flash('Equip No will be a whole number between 8000 and less than 999999999999 (inclusive)', category='error')
+            elif not 1.0 <= float(ChainLength) <= 50:
+                flash('Chain length should be between 1m and 50m (inclusive)', category='error')
+            elif not 100 <= int(ChainPitchLength) <= 500:
+                flash('Chain pitch length should be between 100mm and 500mm (inclusive)', category='error')
+            elif int(ChainPitchLength) > int(MeanMeasuredPitchLength):
+                flash('Mean measured pitch length will be greater than the original chain pitch length', category='error')
+            elif 1 > int(ChainCondition) > 5:
                 flash('Chain Condition should be a whole number from 1 to 5', category='error')
             elif int(PitchesMeasured) < 10:
                 flash('At least 10 pitches should be measured', category='error')
@@ -141,8 +149,6 @@ def update_role(id):
 def liftingchainconteng():
     try:
         liftingchain_list = db.session.query(LiftingChain, User).join(User, LiftingChain.user_id == User.id).filter(LiftingChain.chain_health_score < 60).all()
-        #db.session.query(LiftingChain, User).join(User, LiftingChain.user_id == User.id).filter(LiftingChain.chain_health_score < 60).all()
-        #LiftingChain.query.filter(LiftingChain.chain_health_score < 60).all()
         return render_template('contengchains.html', user=current_user, liftingchain_list=liftingchain_list)
     except Exception as e:
         logging.error(f"An Error occurred while trying to fetch the lifting chain data for Contract Engineer: {e}")
