@@ -23,6 +23,16 @@
             }
         }
     </script>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/swbackground.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
     {% block head %}
     {% endblock %}
 </head>

@@ -1,3 +1,9 @@
+# Name: models
+# Author: Patrick Cronin
+# Date: 02/08/2024
+# Updated: 24/09/2024
+# Purpose: Define db model for Lifting Chains and Users.
+
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
