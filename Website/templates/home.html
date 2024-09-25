@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Lifting Chain App Home Page{% endblock %}
+{% block content %} <br><br><h1>&emsp; Welcome to the Southern Water Lifting Chain Application</h1>
+<br>
+<form method="POST">
+    <h3 align="center">Add Lifting Chain Information!</h3>
+    <div class="form-group">
+        <label for="equip_no">Equip No:</label>
+        <input type="number" class="form-control" id="equip_no" name="equip_no" placeholder="Enter Equip No">
+    </div>
+    <div class="form-group">
+        <label for="chain_length">Chain Length (m):</label>
+        <input type="number" class="form-control" id="chain_length" name="chain_length" placeholder="Enter Chain Length (m)">
+    <div class="form-group">
+        <label for="chain_condition">Chain Condition (1-5):</label>
+        <select class="form-control" id="chain_condition" name="chain_condition">
+            <option value="" disabled selected>Select Chain Condition</option>
+            <option value="1">1 - As New</option>
+            <option value="2">2 - No visible rust, chips or notches</option>
+            <option value="3">3 - Visible but not significant rust, chips or notching</option>
+            <option value="4">4 - Rust, chips or notching</option>
+            <option value="5">5 - Significant rust, chips, notching or broken links</option>
+        </select>
+        </datalist>
+    </div>
+    <div class="form-group">
+        <label for="chain_pitch_length">Original Chain Pitch Length (mm):</label>
+        <input type="number" class="form-control" id="chain_pitch_length" name="chain_pitch_length" placeholder="Enter Original Chain Pitch Length (mm)">
+    </div>
+    <div class="form-group">
+        <label for="mean_measured_pitch_length">Mean Measured Pitch Length (mm):</label>
+        <input type="number" class="form-control" id="mean_measured_pitch_length" name="mean_measured_pitch_length" placeholder="Enter Mean Measured Pitch Length (mm)">
+    </div>
+    <div class="form-group">
+        <label for="pitches_measured">Pitches Measured:</label>
+        <input type="number" class="form-control" id="pitches_measured" name="pitches_measured" placeholder="Enter Pitches Measured">
+    </div>
+    <br>
+    <h1 align="center"><button type="submit" class="btn btn-primary">Add Lifting Chain</button></h1>
+</form>
+{% endblock %}
+
