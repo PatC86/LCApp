@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}User Admin Page{% endblock %}
+{% block head %}
+<style>
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+        }
+        td {
+            background-color: white;
+        }
+        form {
+            display: inline;
+        }
+</style>
+{% endblock %}
+{% block content %}<br><br><h1 align="center">&emsp; User Admin Page</h1>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Surname</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Change Role</th>
+      <th>Remove User</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in user_list %}
+    <tr>
+      <td> {{ user.id }} </td>
+      <td> {{ user.firstname }} </td>
+      <td> {{ user.surname }} </td>
+      <td> {{ user.email}} </td>
+      <td> {{ user.role}} </td>
+      <td>
+        <form action="{{ url_for('views.update_role', id=user.id) }}" method="POST">
+          <select name="role" onchange="confirmRoleChange(this.form, this.value)">
+            <option value="standard" {% if user.role=='standard' %}selected{% endif %}>Standard</option>
+            <option value="admin" {% if user.role =='admin' %}selected{% endif %}>Admin</option>
+            <option value="contracteng" {% if user.role =='contracteng' %}selected{% endif %}>ContractEng</option>
+          </select>
+        </form>
+      </td>
+      <td>
+        <form action="{{ url_for('views.delete_user', id=user.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+          <button type="submit" class="btn btn-primary">Remove User</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

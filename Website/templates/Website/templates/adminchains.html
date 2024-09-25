@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Lifting Chain Admin Page{% endblock %}
+{% block head %}
+<style>
+        table {
+            width: 100%
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+        }
+        td {
+            background-color: white;
+        }
+        form {
+            display: inline;
+        }
+</style>
+{% endblock %}
+{% block content %}<br><br><h1 align="center">&emsp; Lifting Chain Admin Page</h1>
+<br>
+<table>
+  <thead>
+    <tr>
+        <th>ID</th>
+        <th>Equip No</th>
+        <th>Chain Length</th>
+        <th>Chain Condition</th>
+        <th>Original Pitch Length</th>
+        <th>Mean Measured Pitch Length</th>
+        <th>Pitches Measured</th>
+        <th>Health Score</th>
+        <th>Inspection Date</th>
+        <th>Passed</th>
+        <th>User</th>
+        <th>User Name</th>
+        <th>Remove Inspection Record</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for liftingchain, user in liftingchain_list %}
+    <tr>
+        <td> {{ liftingchain.id }} </td>
+        <td> {{ liftingchain.equip_no }} </td>
+        <td> {{ liftingchain.chain_length }} </td>
+        <td> {{ liftingchain.chain_condition }} </td>
+        <td> {{ liftingchain.chain_pitch_length }} </td>
+        <td> {{ liftingchain.mean_measured_pitch_length }} </td>
+        <td> {{ liftingchain.pitches_measured }} </td>
+        <td> {{ liftingchain.chain_health_score }} </td>
+        <td> {{ liftingchain.chain_inspection_date }} </td>
+        <td> {{ liftingchain.chain_passed }} </td>
+        <td> {{ liftingchain.user_id }} </td>
+        <td> {{ user.firstname }} {{ user.surname }} </td>
+        <td>
+        <form action="{{ url_for('views.delete_chain', id=liftingchain.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this inspection record?');">
+          <button type="submit" class="btn btn-primary">Remove Inspection Record</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
