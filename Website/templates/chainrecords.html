@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Lifting Chain Records{% endblock %}
+{% block head %}
+<style>
+    table {
+        width: 100%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    th {
+        background-color: #007bff;
+    }
+    td {
+        background-color: white;
+    }
+    form {
+        display: inline;
+    }
+</style>
+<script>
+    function toggleEdit(button, rowId) {
+        const row = document.querySelector(`#row-${rowId}`);
+        const inputs = row.querySelectorAll('input');
+        const isEditing = button.textContent === 'Edit';
+
+        inputs.forEach(input => input.disabled = !isEditing);
+
+        if (isEditing) {
+            button.textContent = 'Save';
+        } else {
+            button.textContent = 'Edit';
+
+            // Save the updated data (submit form or use AJAX to save)
+            const data = {
+                chain_condition: inputs[0].value,
+                chain_pitch_length: inputs[1].value,
+                mean_measured_pitch_length: inputs[2].value,
+                pitches_measured: inputs[3].value
+            };
+            saveInspection(rowId, data);
+        }
+    }
+
+    function saveInspection(rowId, data) {
+        fetch(`/save_inspection/${rowId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.ok) {
+                alert('Changes saved successfully.');
+            } else {
+                alert('Error saving changes.');
+            }
+        });
+    }
+</script>
+{% endblock %}
+{% block content %}
+<br><br><h1 align="center">Lifting Chain Records</h1><br>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Equip No</th>
+            <th>Chain Length</th>
+            <th>Chain Condition</th>
+            <th>Original Pitch Length</th>
+            <th>Mean Measured Pitch Length</th>
+            <th>Pitches Measured</th>
+            <th>Health Score</th>
+            <th>Inspection Date</th>
+            <th>Passed</th>
+            <th>Location</th>
+            <th>Location Desc</th>
+            <th>User Name</th>
+            <th>Edit Inspection Record</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for liftingchain, user, locations in liftingchain_list %}
+        <tr id="row-{{ liftingchain.id }}">
+            <td> {{ liftingchain.id }} </td>
+            <td> {{ liftingchain.equip_no }} </td>
+            <td> {{ liftingchain.chain_length }} </td>
+            <td><input type="number" value="{{ liftingchain.chain_condition }}" disabled></td>
+            <td><input type="number" value="{{ liftingchain.chain_pitch_length }}" disabled></td>
+            <td><input type="number" value="{{ liftingchain.mean_measured_pitch_length }}" disabled></td>
+            <td><input type="number" value="{{ liftingchain.pitches_measured }}" disabled></td>
+            <td> {{ liftingchain.chain_health_score }} </td>
+            <td> {{ liftingchain.chain_inspection_date }} </td>
+            <td> {{ liftingchain.chain_passed }} </td>
+            <td> {{ locations.location }} </td>
+            <td> {{ locations.location_desc }} </td>
+            <td> {{ user.firstname }} {{ user.surname }} </td>
+            <td><button onclick="toggleEdit(this, {{ liftingchain.id }})" class="btn btn-primary">Edit</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

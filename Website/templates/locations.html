@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Locations{% endblock %}
+{% block head %}
+<style>
+        table {
+            width: 100%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+        }
+        td {
+            background-color: white;
+        }
+        form {
+            display: inline;
+        }
+</style>
+{% endblock %}
+{% block content %}<br><br><h1 align="center">Locations</h1>
+<br>
+<table>
+  <thead>
+    <tr>
+        <th>ID</th>
+        <th>Location</th>
+        <th>Location Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for locations in locations_list %}
+    <tr>
+        <td> {{ locations.id }} </td>
+        <td> {{ locations.location }} </td>
+        <td> {{ locations.location_desc }} </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

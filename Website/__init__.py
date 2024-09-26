@@ -20,7 +20,7 @@ def create_App():
 
     try:
         App.config['SECRET_KEY'] = 'Super Duper Secret Key :D'
-        App.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lcappdatabase_rj41_user:Dq2A5NlKlY9WC06LNFuZMI1dqRos4ccU@dpg-crpl8q8gph6c739usnrg-a.frankfurt-postgres.render.com/lcappdatabase_rj41"
+        App.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lcappdatabase_tw9z_user:ldzOq3N66bf0tqwQpGnIs4UfBlMGWjqq@dpg-crq51fqj1k6c738bdag0-a.frankfurt-postgres.render.com/lcappdatabase_tw9z"
         db.init_app(App)
 
     except Exception as e:
@@ -42,7 +42,7 @@ def create_App():
 
     with App.app_context():
         db.create_all()
-        print('Database successfully created !!! :D')
+        ##print('Database successfully created !!! :D')
 
         admin_user = User.query.filter_by(role='admin').first()
         if not admin_user:

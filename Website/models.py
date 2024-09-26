@@ -21,6 +21,13 @@ class LiftingChain(db.Model):
     chain_inspection_date = db.Column(db.DateTime(timezone=True), default=func.now())
     chain_passed = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+
+
+class Locations(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    location = db.Column(db.Integer, nullable=False)
+    location_desc = db.Column(db.String(30), nullable=False)
 
 
 class User(db.Model, UserMixin):

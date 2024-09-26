@@ -49,13 +49,12 @@ def signup():
         try:
             user = User.query.filter_by(email=Email).first()
             password_regex = r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'
-            email_regex = r'^[a-zA-Z0-9._%+-]+@sw\.co\.uk$'
             if user:
                 flash('Email already registered', category='error')
             elif len(Email) < 10:
                 flash('Email must be greater than 9 characters', category='error')
-            elif not re.match(Email, email_regex):
-                flash('email must be southern water @sw.co.uk address')
+            elif not Email.endswith('@sw.co.uk'):
+                flash('email must be southern water @sw.co.uk address', category='error')
             elif len(FirstName) < 2:
                 flash('First Name must be longer than 1 Character', category='error')
             elif len(Surname) < 2:
@@ -68,7 +67,7 @@ def signup():
                 flash('Password must contain a number, symbol, uppercase and lowercase letter', category='error')
             else:
                 new_user = User(email=Email, firstname=FirstName, surname=Surname, role='standard',
-                            password=generate_password_hash(Password1, method='pbkdf2:sha256').decode('utf-8'))
+                            password=generate_password_hash(Password1, method='pbkdf2:sha256'))
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user, remember=True)

@@ -3,7 +3,7 @@
 {% block head %}
 <style>
         table {
-            width: 100%
+            width: 100%;
             margin: 20px auto;
             border-collapse: collapse;
         }
@@ -23,7 +23,7 @@
         }
 </style>
 {% endblock %}
-{% block content %}<br><br><h1 align="center">&emsp; Lifting Chain Contract Engineer Page</h1>
+{% block content %}<br><br><h1 align="center">Lifting Chain Contract Engineer Page</h1>
 <br>
 <table>
   <thead>
@@ -38,12 +38,13 @@
         <th>Health Score</th>
         <th>Inspection Date</th>
         <th>Passed</th>
-        <th>User</th>
+        <th>Location</th>
+        <th>Location Desc</th>
         <th>User Name</th>
     </tr>
   </thead>
   <tbody>
-    {% for liftingchain, user in liftingchain_list %}
+    {% for liftingchain, user, locations in liftingchain_list %}
     <tr>
         <td> {{ liftingchain.id }} </td>
         <td> {{ liftingchain.equip_no }} </td>
@@ -55,7 +56,8 @@
         <td> {{ liftingchain.chain_health_score }} </td>
         <td> {{ liftingchain.chain_inspection_date }} </td>
         <td> {{ liftingchain.chain_passed }} </td>
-        <td> {{ liftingchain.user_id }} </td>
+        <td> {{ locations.location }} </td>
+        <td> {{ locations.location_desc}} </td>
         <td> {{ user.firstname }} {{ user.surname }}</td>
     </tr>
     {% endfor %}
