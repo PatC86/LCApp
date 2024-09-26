@@ -56,7 +56,7 @@
       </td>
       <td>
         <form action="{{ url_for('views.delete_user', id=user.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
-          <button type="submit" class="btn btn-primary">Remove User</button>
+          <button type="submit" class="btn btn-danger">Remove User</button>
         </form>
       </td>
     </tr>

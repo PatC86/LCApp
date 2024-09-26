@@ -21,27 +21,33 @@
     form {
         display: inline;
     }
+    .btn-save {
+        background-color: green;
+        border-color: green;
+    }
 </style>
 <script>
     function toggleEdit(button, rowId) {
         const row = document.querySelector(`#row-${rowId}`);
-        const inputs = row.querySelectorAll('input');
+        const inputs = row.querySelectorAll('input, select');
         const isEditing = button.textContent === 'Edit';
 
         inputs.forEach(input => input.disabled = !isEditing);
 
         if (isEditing) {
             button.textContent = 'Save';
+            button.classList.add('btn-save');
         } else {
             button.textContent = 'Edit';
+            button.classList.remove('btn-save');
 
-            // Save the updated data (submit form or use AJAX to save)
             const data = {
-                chain_condition: inputs[0].value,
-                chain_pitch_length: inputs[1].value,
-                mean_measured_pitch_length: inputs[2].value,
-                pitches_measured: inputs[3].value
+                chain_condition: row.querySelector(`#chain_condition-${rowId}`).value,
+                chain_pitch_length: row.querySelector(`#chain_pitch_length-${rowId}`).value,
+                mean_measured_pitch_length: row.querySelector(`#mean_measured_pitch_length-${rowId}`).value,
+                pitches_measured: row.querySelector(`#pitches_measured-${rowId}`).value
             };
+
             saveInspection(rowId, data);
         }
     }
@@ -69,6 +75,7 @@
 <table>
     <thead>
         <tr>
+            <th>Edit Inspection Record</th>
             <th>ID</th>
             <th>Equip No</th>
             <th>Chain Length</th>
@@ -82,16 +89,24 @@
             <th>Location</th>
             <th>Location Desc</th>
             <th>User Name</th>
-            <th>Edit Inspection Record</th>
         </tr>
     </thead>
     <tbody>
         {% for liftingchain, user, locations in liftingchain_list %}
         <tr id="row-{{ liftingchain.id }}">
+            <td><button onclick="toggleEdit(this, {{ liftingchain.id }})" class="btn btn-primary">Edit</button></td>
             <td> {{ liftingchain.id }} </td>
             <td> {{ liftingchain.equip_no }} </td>
             <td> {{ liftingchain.chain_length }} </td>
-            <td><input type="number" value="{{ liftingchain.chain_condition }}" disabled></td>
+            <td>
+                <select id="chain_condition-{{ liftingchain.id }}" disabled>
+                    <option value="1" {% if liftingchain.chain_condition == 1 %}selected{% endif %}>1 - As New</option>
+                    <option value="2" {% if liftingchain.chain_condition == 2 %}selected{% endif %}>2 - No visible rust, chips or notches</option>
+                    <option value="3" {% if liftingchain.chain_condition == 3 %}selected{% endif %}>3 - Visible but not significant rust, chips or notching</option>
+                    <option value="4" {% if liftingchain.chain_condition == 4 %}selected{% endif %}>4 - Rust, chips or notching</option>
+                    <option value="5" {% if liftingchain.chain_condition == 5 %}selected{% endif %}>5 - Significant rust, chips, notching or broken links</option>
+                </select>
+            </td>
             <td><input type="number" value="{{ liftingchain.chain_pitch_length }}" disabled></td>
             <td><input type="number" value="{{ liftingchain.mean_measured_pitch_length }}" disabled></td>
             <td><input type="number" value="{{ liftingchain.pitches_measured }}" disabled></td>
@@ -101,7 +116,6 @@
             <td> {{ locations.location }} </td>
             <td> {{ locations.location_desc }} </td>
             <td> {{ user.firstname }} {{ user.surname }} </td>
-            <td><button onclick="toggleEdit(this, {{ liftingchain.id }})" class="btn btn-primary">Edit</button></td>
         </tr>
         {% endfor %}
     </tbody>
