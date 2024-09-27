@@ -6,11 +6,11 @@
     <h3 align="center">Add Lifting Chain Information!</h3>
     <div class="form-group">
         <label for="equip_no">Equip No:</label>
-        <input type="number" class="form-control" id="equip_no" name="equip_no" placeholder="Enter Equip No">
+        <input type="number" class="form-control" id="equip_no" name="equip_no" placeholder="Enter Equip No - Should be between 8000 and 999999999999">
     </div>
     <div class="form-group">
         <label for="chain_length">Chain Length (m):</label>
-        <input type="number" class="form-control" id="chain_length" name="chain_length" placeholder="Enter Chain Length (m)" step="any">
+        <input type="number" class="form-control" id="chain_length" name="chain_length" placeholder="Enter Chain Length (m) min = 1.0 max = 50.0" step="any">
     </div>
     <div class="form-group">
         <label for="chain_condition">Chain Condition (1-5):</label>
@@ -25,15 +25,15 @@
     </div>
     <div class="form-group">
         <label for="chain_pitch_length">Original Chain Pitch Length (mm):</label>
-        <input type="number" class="form-control" id="chain_pitch_length" name="chain_pitch_length" placeholder="Enter Original Chain Pitch Length (mm)">
+        <input type="number" class="form-control" id="chain_pitch_length" name="chain_pitch_length" placeholder="Enter Original Chain Pitch Length (mm) min = 100 max = 500">
     </div>
     <div class="form-group">
         <label for="mean_measured_pitch_length">Mean Measured Pitch Length (mm):</label>
-        <input type="number" class="form-control" id="mean_measured_pitch_length" name="mean_measured_pitch_length" placeholder="Enter Mean Measured Pitch Length (mm)">
+        <input type="number" class="form-control" id="mean_measured_pitch_length" name="mean_measured_pitch_length" placeholder="Enter Mean Measured Pitch Length (mm) should be equal or greater than original pitch length">
     </div>
     <div class="form-group">
         <label for="pitches_measured">Pitches Measured:</label>
-        <input type="number" class="form-control" id="pitches_measured" name="pitches_measured" placeholder="Enter Pitches Measured">
+        <input type="number" class="form-control" id="pitches_measured" name="pitches_measured" placeholder="Enter Pitches Measured - should be 10 or more">
     </div>
     <div class="form-group">
     <label for="location">Location:</label>
